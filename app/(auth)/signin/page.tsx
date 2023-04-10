@@ -1,10 +1,9 @@
-import Button from "@/components/Button";
+import AuthForm from "@/components/Authform";
 
 export default function SignIn() {
   return (
     <>
-      <div>signin</div>
-      <Button size="large">SIGN IN BTN</Button>
+      <AuthForm mode="signin" />
     </>
   );
 }
