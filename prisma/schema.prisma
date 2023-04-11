@@ -1,3 +1,7 @@
+//run when we make chgs to schema
+//npx prisma migrate dev
+
+
 generator client {
   provider = "prisma-client-js"
 }

@@ -1,11 +1,11 @@
-import bcrpyt from "bcrypt";
+import bcrypt from "bcrypt";
 import { SignJWT, jwtVerify } from "jose";
 import { db } from "./db";
 
-export const hashPassword = (password: string) => bcrpyt.hash(password, 10);
+export const hashPassword = (password) => bcrypt.hash(password, 10);
 
-export const comparePassword = (password: string, hash: string) =>
-  bcrpyt.compare(password, hash);
+export const comparePassword = (plainTextPassword, hashedPassword) =>
+  bcrypt.compare(plainTextPassword, hashedPassword);
 
 export const createJWT = (user) => {
   const iat = Math.floor(Date.now() / 1000); //issued at
