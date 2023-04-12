@@ -37,14 +37,15 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
 
       try {
         if (mode === "register") {
-          register(formState);
+          await register(formState);
         } else {
-          signin(formState);
+          await signin(formState);
         }
 
         router.replace("/home");
       } catch (error) {
-        setError(`Cloud not ${mode}!`);
+        console.log(error);
+        setError(`${error}`);
       } finally {
         setFormState(initial);
       }
@@ -105,20 +106,23 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
               }
             />
           </div>
-          <div className="mb-8">
-            <div className="text-lg mb-4 ml-2 text-black/50">Password</div>
-            <Input
-              required
-              value={formState.password}
-              type="password"
-              placeholder="Password"
-              className="border-solid border-gray border-2 px-6 py-2 text-lg rounded-3xl w-full"
-              onChange={(e) =>
-                setFormState((s) => ({ ...s, password: e.target.value }))
-              }
-            />
+          <div className="relative">
+            <div className="mb-8">
+              <div className="text-lg mb-4 ml-2 text-black/50">Password</div>
+              <Input
+                required
+                value={formState.password}
+                type="password"
+                placeholder="Password"
+                className="border-solid border-gray border-2 px-6 py-2 text-lg rounded-3xl w-full"
+                onChange={(e) =>
+                  setFormState((s) => ({ ...s, password: e.target.value }))
+                }
+              />
+            </div>
+            <div className="authError"> {error}</div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-2">
             <div>
               <span>
                 <Link

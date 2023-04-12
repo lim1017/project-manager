@@ -10,25 +10,31 @@ export const GET = async (request: Request, response) => {
 export const POST = async (req: Request) => {
   const res = await req.json();
 
-  const user = await db.user.create({
-    data: {
-      email: res.email,
-      password: await hashPassword(res.password),
-      firstName: res.firstName,
-      lastName: res.lastName,
-    },
-  });
+  try {
+    const user = await db.user.create({
+      data: {
+        email: res.email,
+        password: await hashPassword(res.password),
+        firstName: res.firstName,
+        lastName: res.lastName,
+      },
+    });
+    const jwt = await createJWT(user);
 
-  const jwt = await createJWT(user);
-
-  return new Response("Hello, Next.js!", {
-    status: 200,
-    headers: {
-      "Set-Cookie": serialize(process.env.COOKIE_NAME, jwt, {
-        httpOnly: true,
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-      }),
-    },
-  });
+    return new Response("Hello, Next.js!", {
+      status: 200,
+      headers: {
+        "Set-Cookie": serialize(process.env.COOKIE_NAME, jwt, {
+          httpOnly: true,
+          path: "/",
+          maxAge: 60 * 60 * 24 * 7,
+        }),
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return new Response("Failed to register", {
+      status: 401,
+    });
+  }
 };
