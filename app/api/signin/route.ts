@@ -3,7 +3,6 @@ import { comparePassword, createJWT } from "@/lib/auth";
 import { serialize } from "cookie";
 
 export const POST = async (req: Request) => {
-  console.log("in route.ts for signin!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   const res = await req.json();
   const user = await db.user.findUnique({
     where: {
@@ -12,7 +11,7 @@ export const POST = async (req: Request) => {
   });
 
   if (!user) {
-    return new Response("User not found", {
+    return new Response(JSON.stringify("User not found"), {
       status: 401,
     });
   }
@@ -33,7 +32,7 @@ export const POST = async (req: Request) => {
       },
     });
   } else {
-    return new Response("Incorrect login", {
+    return new Response(JSON.stringify("Incorrect login"), {
       status: 401,
     });
   }

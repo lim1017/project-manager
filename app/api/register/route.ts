@@ -1,6 +1,7 @@
 import { createJWT, hashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { serialize } from "cookie";
+import { NextResponse } from "next/server";
 
 export const GET = async (request: Request, response) => {
   // response.status(209);
@@ -21,7 +22,7 @@ export const POST = async (req: Request) => {
     });
     const jwt = await createJWT(user);
 
-    return new Response("Hello, Next.js!", {
+    return new Response(JSON.stringify("Success"), {
       status: 200,
       headers: {
         "Set-Cookie": serialize(process.env.COOKIE_NAME, jwt, {
@@ -33,7 +34,7 @@ export const POST = async (req: Request) => {
     });
   } catch (err) {
     console.log(err);
-    return new Response("Failed to register", {
+    return new Response(JSON.stringify("Email already exists"), {
       status: 401,
     });
   }
