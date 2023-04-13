@@ -21,7 +21,7 @@ export const POST = async (req: Request) => {
   if (isUser) {
     console.log("setting cookie after successful login");
     const jwt = await createJWT(user);
-    return new Response("Successful login", {
+    return new Response(JSON.stringify("Successful login"), {
       status: 200,
       headers: {
         "Set-Cookie": serialize(process.env.COOKIE_NAME, jwt, {

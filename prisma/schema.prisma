@@ -1,6 +1,6 @@
 //run when we make chgs to schema
 //npx prisma migrate dev
-
+//npx prisma migrate reset
 
 generator client {
   provider = "prisma-client-js"
@@ -17,8 +17,8 @@ model User {
   updatedAt DateTime  @updatedAt
   email     String    @unique
   password  String
-  firstName String?
-  lastName  String?
+  firstName String
+  lastName  String
   projects  Project[]
   tasks     Task[]
 }
