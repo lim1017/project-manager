@@ -8,7 +8,7 @@ export default function GlassPane({ children, className }) {
         className
       )}
     >
-      <div className="glass-pane__content">{children}</div>
+      {children}
     </div>
   );
 }
