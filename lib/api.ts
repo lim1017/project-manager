@@ -36,3 +36,11 @@ export const signin = async (user) => {
 
   return data;
 };
+
+export const createNewProject = (name) => {
+  return fetcher({
+    url: "/api/project",
+    method: "POST",
+    body: { name },
+  });
+};
