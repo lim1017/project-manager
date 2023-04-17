@@ -9,13 +9,8 @@ export const POST = async (req: Request) => {
   const nextCookies = cookies();
   const cookie = nextCookies.get(process.env.COOKIE_NAME);
 
-  console.log(cookie, "cooooooooookie");
-
   const user = await validateJWT(cookie?.value);
 
-  console.log(res, "res");
-  console.log(user, "user");
-  console.log(" made it hereeeeeeeeeeeeeeeeeeeee");
   try {
     const project = await db.project.create({
       data: {
