@@ -40,7 +40,7 @@ export default async function Page() {
           {projects.map((project, i) => {
             return (
               <div className="w1/3 p-3" key={i}>
-                <Link href={`/projects/${project.id}`}>
+                <Link href={`/project/${project.id}`}>
                   <ProjectCard project={project} />
                 </Link>
               </div>

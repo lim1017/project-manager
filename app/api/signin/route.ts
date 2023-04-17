@@ -19,7 +19,6 @@ export const POST = async (req: Request) => {
   const isUser = await comparePassword(res.password, user.password);
 
   if (isUser) {
-    console.log("setting cookie after successful login");
     const jwt = await createJWT(user);
     return new Response(JSON.stringify("Successful login"), {
       status: 200,
