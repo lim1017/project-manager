@@ -10,7 +10,9 @@ export const fetcher = async ({ url, method, body }) => {
   console.log(res, "resssssssss");
 
   if (!res.ok) {
+    console.log("in res not ok");
     const error = await res.json();
+    console.log(error);
     throw error || "Something went wrong!";
   }
   const data = await res.json();
@@ -37,10 +39,13 @@ export const signin = async (user) => {
   return data;
 };
 
-export const createNewProject = (name) => {
-  return fetcher({
+export const createNewProject = async (name) => {
+  console.log(name, "nameeeeeeeeeeeeeeeee");
+  const data = fetcher({
     url: "/api/project",
-    method: "POST",
+    method: "post",
     body: { name },
   });
+
+  return data;
 };

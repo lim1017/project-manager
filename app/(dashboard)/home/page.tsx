@@ -1,5 +1,6 @@
 import GreetingsSkeleton from "@/components/GreetingSkeleton";
 import Greetings from "@/components/Greetings";
+import NewProjectBtn from "@/components/NewProjectBtn";
 import ProjectCard from "@/components/ProjectCard";
 import TaskCard from "@/components/TaskCard";
 import { delay } from "@/lib/async";
@@ -46,7 +47,9 @@ export default async function Page() {
               </div>
             );
           })}
-          <div className="w-1/3 p-3">{/* new project here */}</div>
+          <div className="w-1/3 p-3">
+            <NewProjectBtn />
+          </div>
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
           <div className="w-full">
