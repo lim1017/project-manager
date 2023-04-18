@@ -1,5 +1,6 @@
 import GreetingsSkeleton from "@/components/GreetingSkeleton";
 import Greetings from "@/components/Greetings";
+import NewProject from "@/components/NewProject";
 import NewProjectBtn from "@/components/NewProjectBtn";
 import ProjectCard from "@/components/ProjectCard";
 import TaskCard from "@/components/TaskCard";
@@ -22,7 +23,6 @@ const getProjects = async () => {
       tasks: true,
     },
   });
-
   return { projects };
 };
 
@@ -48,7 +48,7 @@ export default async function Page() {
             );
           })}
           <div className="w-1/3 p-3">
-            <NewProjectBtn />
+            <NewProject />
           </div>
         </div>
         <div className="mt-6 flex-2 grow w-full flex">

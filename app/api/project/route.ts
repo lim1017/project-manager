@@ -1,6 +1,5 @@
 import { validateJWT } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export const POST = async (req: Request) => {
