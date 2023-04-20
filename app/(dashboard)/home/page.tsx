@@ -1,7 +1,6 @@
 import GreetingsSkeleton from "@/components/GreetingSkeleton";
 import Greetings from "@/components/Greetings";
 import NewProject from "@/components/NewProject";
-import NewProjectBtn from "@/components/NewProjectBtn";
 import ProjectCard from "@/components/ProjectCard";
 import TaskCard from "@/components/TaskCard";
 import { delay } from "@/lib/async";
@@ -12,7 +11,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 const getProjects = async () => {
-  await delay(2000);
+  await delay(1000);
   const user = await getUserFromCookie(cookies());
 
   const projects = await db.project.findMany({

@@ -49,3 +49,13 @@ export const createNewProject = async (name) => {
 
   return data;
 };
+
+export const createNewTask = async (task) => {
+  const data = fetcher({
+    url: "/api/task",
+    method: "post",
+    body: task,
+  });
+
+  return data;
+};

@@ -2,8 +2,9 @@ import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Prisma, TASK_STATUS } from "@prisma/client";
 import { cookies } from "next/headers";
-import Button from "./Button";
 import Card from "./Card";
+
+import NewTask from "./NewTask";
 
 const tasks = Prisma.validator<Prisma.TaskArgs>()({});
 
@@ -33,38 +34,38 @@ const TaskCard = async ({ title, tasks }: { title: string; tasks: Tasks }) => {
   const data = tasks || (await getData());
 
   return (
-    <Card>
-      <div className="flex justify-between items-center">
-        <div>
-          <span className="text-3xl text-gray-600">{title}</span>
-        </div>
-        <div>
-          <Button intent="text" className="text-violet-600">
-            + Create New
-          </Button>
-        </div>
-      </div>
-      <div>
-        {data && data.length ? (
+    <>
+      <Card>
+        <div className="flex justify-between items-center">
           <div>
-            {data.map((task) => (
-              <div className="py-2 ">
-                <div>
-                  <span className="text-gray-800">{task.name}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400 text-sm">
-                    {task.description}
-                  </span>
-                </div>
-              </div>
-            ))}
+            <span className="text-3xl text-gray-600">{title}</span>
           </div>
-        ) : (
-          <div>no tasks</div>
-        )}
-      </div>
-    </Card>
+          <div>
+            <NewTask />
+          </div>
+        </div>
+        <div>
+          {data && data.length ? (
+            <div>
+              {data.map((task) => (
+                <div className="py-2 ">
+                  <div>
+                    <span className="text-gray-800">{task.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 text-sm">
+                      {task.description}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>no tasks</div>
+          )}
+        </div>
+      </Card>
+    </>
   );
 };
 

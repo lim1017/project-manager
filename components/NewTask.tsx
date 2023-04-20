@@ -1,26 +1,20 @@
 "use client";
-import { createNewProject } from "@/lib/api";
+import { useModal } from "@/lib/hooks/useModal";
 import { useState } from "react";
-import Modal from "react-modal";
 import Button from "./Button";
 import Input from "./Input";
-import { useModal } from "@/lib/hooks/useModal";
+import Modal from "react-modal";
 
-Modal.setAppElement("#modal");
-
-const NewProject = () => {
-  const [name, setName] = useState("");
+export default function NewTask() {
   const { isOpen, openModal, closeModal } = useModal();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await createNewProject(name);
-    closeModal();
-  };
+  const [name, setName] = useState("");
 
   return (
-    <div className="px-6 py-8 hover:scale-105 transition-all ease-in-out duration-200 flex justify-center items-center">
-      <Button onClick={() => openModal()}>+ New Project</Button>
+    <div>
+      <Button onClick={openModal} intent="text" className="text-violet-600">
+        + Create New
+      </Button>
 
       <Modal
         isOpen={isOpen}
@@ -29,7 +23,10 @@ const NewProject = () => {
         className="w-3/4 bg-white rounded-xl p-8"
       >
         <h1 className="text-3xl mb-6">New Project</h1>
-        <form className="flex items-center" onSubmit={handleSubmit}>
+        <form
+          className="flex items-center"
+          onSubmit={() => console.log("submit")}
+        >
           <Input
             placeholder="project name"
             value={name}
@@ -40,6 +37,4 @@ const NewProject = () => {
       </Modal>
     </div>
   );
-};
-
-export default NewProject;
+}
