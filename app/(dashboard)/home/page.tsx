@@ -3,19 +3,16 @@ import Greetings from "@/components/Greetings";
 import NewProject from "@/components/NewProject";
 import ProjectCard from "@/components/ProjectCard";
 import TaskCard from "@/components/TaskCard";
-import { delay } from "@/lib/async";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { store } from "@/store";
 import { setProjects } from "@/store/projectSlice";
-import { setStartupPokemon } from "@/store/searchSlice";
 // import { setProjects } from "@/store/projectSlice";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
 const getProjects = async () => {
-  await delay(1000);
   const user = await getUserFromCookie(cookies());
 
   const projects = await db.project.findMany({
@@ -34,7 +31,6 @@ export default async function Page() {
 
   //saving projects to store in server side component
   store.dispatch(setProjects(projects));
-
 
   return (
     <div className="h-full overflow-y-auto pr-6 w-full">

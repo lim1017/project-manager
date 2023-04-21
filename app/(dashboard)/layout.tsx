@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }) {
       <head />
       <body className="h-screen w-screen rainbow-mesh p-6 flex overflow-y-hidden">
         <Sidebar />
-        <GlassPane className="h-screen w-screen flex justify-center items-center pl-6">
+        <GlassPane className="h-screen w-screen flex justify-center items-center pl-6 pt-6 pb-6 overflow-y-scroll">
           {children}
         </GlassPane>
         <div id="modal"></div>

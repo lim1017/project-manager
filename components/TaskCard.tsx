@@ -6,6 +6,8 @@ import Card from "./Card";
 
 import NewTask from "./NewTask";
 import { store } from "@/store";
+import SingleTask from "./SingleTask";
+import { getProjectFromID } from "@/lib/helpers";
 
 const tasks = Prisma.validator<Prisma.TaskArgs>()({});
 
@@ -34,6 +36,9 @@ const getData = async () => {
 const TaskCard = async ({ title, tasks }: { title: string; tasks: Tasks }) => {
   const data = tasks || (await getData());
 
+  const projects = store.getState().project.projects;
+
+  console.log(data, "tasks");
   return (
     <>
       <Card>
@@ -42,23 +47,18 @@ const TaskCard = async ({ title, tasks }: { title: string; tasks: Tasks }) => {
             <span className="text-3xl text-gray-600">{title}</span>
           </div>
           <div>
-            <NewTask projects={store.getState().project.projects} />
+            <NewTask projects={projects} />
           </div>
         </div>
         <div>
           {data && data.length ? (
             <div>
-              {data.map((task, i) => (
-                <div className="py-2" key={i}>
-                  <div>
-                    <span className="text-gray-800">{task.name}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400 text-sm">
-                      {task.description}
-                    </span>
-                  </div>
-                </div>
+              {data.map((task: Tasks, i) => (
+                <SingleTask
+                  key={i}
+                  task={task}
+                  projectName={getProjectFromID(task.projectId, projects)?.name}
+                />
               ))}
             </div>
           ) : (

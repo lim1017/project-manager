@@ -54,7 +54,6 @@ export default function NewTask({ projects }: { projects: ProjectType[] }) {
             value={selectedProject}
             options={projectOptions}
             onChange={(e) => {
-              console.log(e.target.value);
               setSelectedProject(e.target.value);
             }}
             className="mb-4"

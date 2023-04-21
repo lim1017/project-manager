@@ -44,7 +44,6 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
 
         router.replace("/home");
       } catch (error) {
-        console.log(error);
         setError(`${error}`);
       } finally {
         setFormState(initial);

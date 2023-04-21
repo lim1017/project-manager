@@ -58,3 +58,13 @@ export const createNewTask = async (task) => {
 
   return data;
 };
+
+export const updateTask = async (task) => {
+  const data = fetcher({
+    url: "/api/task",
+    method: "PATCH",
+    body: task,
+  });
+
+  return data;
+};

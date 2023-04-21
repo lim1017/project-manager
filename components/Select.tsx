@@ -14,6 +14,7 @@ export default function Select({ className, options, name, ...props }) {
             <option
               key={i}
               value={option.value}
+              // TODO styling option
               className={`border border-gray-300 rounded-md bg-white p-2 ${className}`}
             >
               {option.name}
