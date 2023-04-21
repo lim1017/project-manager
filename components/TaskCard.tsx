@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import Card from "./Card";
 
 import NewTask from "./NewTask";
+import { store } from "@/store";
 
 const tasks = Prisma.validator<Prisma.TaskArgs>()({});
 
@@ -41,14 +42,14 @@ const TaskCard = async ({ title, tasks }: { title: string; tasks: Tasks }) => {
             <span className="text-3xl text-gray-600">{title}</span>
           </div>
           <div>
-            <NewTask />
+            <NewTask projects={store.getState().project.projects} />
           </div>
         </div>
         <div>
           {data && data.length ? (
             <div>
-              {data.map((task) => (
-                <div className="py-2 ">
+              {data.map((task, i) => (
+                <div className="py-2" key={i}>
                   <div>
                     <span className="text-gray-800">{task.name}</span>
                   </div>

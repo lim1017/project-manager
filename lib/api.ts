@@ -40,7 +40,6 @@ export const signin = async (user) => {
 };
 
 export const createNewProject = async (name) => {
-  console.log(name, "nameeeeeeeeeeeeeeeee");
   const data = fetcher({
     url: "/api/project",
     method: "post",

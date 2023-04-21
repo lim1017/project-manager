@@ -1,16 +1,7 @@
 import { FC } from "react";
-import { Prisma } from "@prisma/client";
 import Card from "./Card";
 import clsx from "clsx";
-
-const projectWithTasks = Prisma.validator<Prisma.ProjectArgs>()({
-  //items with relations are not auto included
-  include: { tasks: true },
-});
-
-// This is a type that represents the shape of the data that we get from the
-// database. It's a combination of the Project model and the Task model.
-type ProjectWithTasks = Prisma.ProjectGetPayload<typeof projectWithTasks>;
+import { ProjectWithTasks } from "@/lib/types";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-us", {

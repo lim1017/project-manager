@@ -17,8 +17,8 @@ export const POST = async (req: Request) => {
       data: {
         name: res.name,
         ownerId: user.id,
-        projectId: "b2a333f1-7ade-42d2-9549-1be4a574ffce",
-        // projectId: res.projectId,
+        // projectId: "b2a333f1-7ade-42d2-9549-1be4a574ffce",
+        projectId: res.projectId,
         description: res.description,
       },
     });

@@ -11,7 +11,7 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en">
       <head />
-      <body className="h-screen w-screen rainbow-mesh p-6 flex">
+      <body className="h-screen w-screen rainbow-mesh p-6 flex overflow-y-hidden">
         <Sidebar />
         <GlassPane className="h-screen w-screen flex justify-center items-center pl-6">
           {children}
