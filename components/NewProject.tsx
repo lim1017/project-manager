@@ -1,4 +1,6 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import { createNewProject } from "@/lib/api";
 import { useState } from "react";
 import Modal from "react-modal";
@@ -9,12 +11,14 @@ import { useModal } from "@/lib/hooks/useModal";
 Modal.setAppElement("#modal");
 
 const NewProject = () => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const { isOpen, openModal, closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createNewProject(name);
+    router.refresh();
     closeModal();
   };
 

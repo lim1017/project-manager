@@ -33,21 +33,31 @@ const getData = async () => {
 };
 
 //card will be reused in scenarios where tasks get passed in
-const TaskCard = async ({ title, tasks }: { title: string; tasks: Tasks }) => {
+const TaskCard = async ({
+  title,
+  tasks,
+  projectId,
+}: {
+  title?: string;
+  tasks: Tasks;
+  projectId?: string;
+}) => {
   const data = tasks || (await getData());
 
   const projects = store.getState().project.projects;
 
-  console.log(data, "tasks");
   return (
     <>
       <Card>
-        <div className="flex justify-between items-center">
+        <div
+          className="flex justify-between items-center"
+          style={{ minWidth: "50vw" }}
+        >
           <div>
             <span className="text-3xl text-gray-600">{title}</span>
           </div>
           <div>
-            <NewTask projects={projects} />
+            <NewTask projects={projects} projectId={projectId} title={title} />
           </div>
         </div>
         <div>

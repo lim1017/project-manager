@@ -1,4 +1,6 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import { useModal } from "@/lib/hooks/useModal";
 import { useState } from "react";
 import Button from "./Button";
@@ -10,13 +12,24 @@ import Select from "./Select";
 import { ProjectType } from "@/types/types";
 
 //TODO clientside reduxStore not working atm, so we're passing projects as props from store from serverComponent
-export default function NewTask({ projects }: { projects: ProjectType[] }) {
+export default function NewTask({
+  projects,
+  projectId,
+  title,
+}: {
+  projects: ProjectType[];
+  projectId?: string; //if projectID & title are passed in, we're creating a task from the project page
+  title?: string;
+}) {
+  const router = useRouter();
   const { isOpen, openModal, closeModal } = useModal();
 
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedProject, setSelectedProject] = useState("");
-
+  const [selectedProject, setSelectedProject] = useState(
+    projectId ? projectId : ""
+  );
+  console.log({ projectId, selectedProject });
   const handleCreateTask = async (e) => {
     e.preventDefault();
 
@@ -25,6 +38,8 @@ export default function NewTask({ projects }: { projects: ProjectType[] }) {
       description,
       projectId: selectedProject,
     });
+
+    router.refresh();
     closeModal();
   };
 
@@ -35,10 +50,11 @@ export default function NewTask({ projects }: { projects: ProjectType[] }) {
     };
   });
 
+  console.log(projects);
   return (
     <div>
       <Button onClick={openModal} intent="text" className="text-violet-600">
-        + Create New
+        + Create Task
       </Button>
 
       <Modal
@@ -49,15 +65,19 @@ export default function NewTask({ projects }: { projects: ProjectType[] }) {
       >
         <h1 className="text-3xl mb-6">New Task</h1>
         <form onSubmit={handleCreateTask}>
-          <Select
-            name="Projects"
-            value={selectedProject}
-            options={projectOptions}
-            onChange={(e) => {
-              setSelectedProject(e.target.value);
-            }}
-            className="mb-4"
-          />
+          {title ? (
+            <h4 className="mb-4">Project: {title}</h4>
+          ) : (
+            <Select
+              name="Projects"
+              value={selectedProject}
+              options={projectOptions}
+              onChange={(e) => {
+                setSelectedProject(e.target.value);
+              }}
+              className="mb-4"
+            />
+          )}
           <Input
             placeholder="Task name"
             value={task}

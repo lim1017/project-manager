@@ -19,8 +19,8 @@ export default function SingleTask({ task, projectName }) {
 
   return (
     <div
-      className="py-2 border-solid border-gray border-2 rounded-md p-3"
-      style={{ backgroundColor: checked ? "#8AFF8A" : "none" }}
+      className="py-2 border-solid border-gray border-2 rounded-md p-3 mt-3"
+      style={{ backgroundColor: checked ? "#8AFF8A" : "white" }}
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center">
