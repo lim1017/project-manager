@@ -39,6 +39,16 @@ export const signin = async (user) => {
   return data;
 };
 
+export const signOut = async () => {
+  const data = await fetcher({
+    url: "/api/signout",
+    method: "post",
+    body: {},
+  });
+
+  return data;
+};
+
 export const createNewProject = async (name) => {
   const data = fetcher({
     url: "/api/project",

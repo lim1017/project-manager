@@ -1,6 +1,6 @@
 export default function Select({ className, options, name, ...props }) {
   return (
-    <>
+    <div>
       <label htmlFor={name} className="mr-3">
         {name}
       </label>
@@ -17,11 +17,11 @@ export default function Select({ className, options, name, ...props }) {
               // TODO styling option
               className={`border border-gray-300 rounded-md bg-white p-2 ${className}`}
             >
-              {option.name}
+              {option.label}
             </option>
           );
         })}
       </select>
-    </>
+    </div>
   );
 }

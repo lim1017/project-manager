@@ -1,15 +1,14 @@
 import GreetingsSkeleton from "@/components/GreetingSkeleton";
 import Greetings from "@/components/Greetings";
 import NewProject from "@/components/NewProject";
-import ProjectCard from "@/components/ProjectCard";
+import Projects from "@/components/Projects";
 import TaskCard from "@/components/TaskCard";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
+import Providers from "@/lib/providers/Provider";
 import { store } from "@/store";
 import { setProjects } from "@/store/projectSlice";
-// import { setProjects } from "@/store/projectSlice";
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { Suspense } from "react";
 
 const getProjects = async () => {
@@ -41,15 +40,9 @@ export default async function Page() {
           </Suspense>
         </div>
         <div className="flex flex-2 grow items-center flex-wrap mt-3 -m-3 ">
-          {projects.map((project, i) => {
-            return (
-              <div className="w1/3 p-3" key={i}>
-                <Link href={`/project/${project.id}`}>
-                  <ProjectCard project={project} />
-                </Link>
-              </div>
-            );
-          })}
+          <Providers>
+            <Projects projects={projects} />
+          </Providers>
           <div className="w-1/3 p-3">
             <NewProject />
           </div>

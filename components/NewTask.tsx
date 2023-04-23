@@ -29,7 +29,7 @@ export default function NewTask({
   const [selectedProject, setSelectedProject] = useState(
     projectId ? projectId : ""
   );
-  console.log({ projectId, selectedProject });
+
   const handleCreateTask = async (e) => {
     e.preventDefault();
 
@@ -45,12 +45,11 @@ export default function NewTask({
 
   const projectOptions = projects.map((project) => {
     return {
-      name: project.name,
+      label: project.name,
       value: project.id,
     };
   });
 
-  console.log(projects);
   return (
     <div>
       <Button onClick={openModal} intent="text" className="text-violet-600">
