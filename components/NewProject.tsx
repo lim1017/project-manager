@@ -39,7 +39,9 @@ const NewProject = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <Button type="submit">Create</Button>
+          <Button className="ml-3" type="submit">
+            Create
+          </Button>
         </form>
       </Modal>
     </div>

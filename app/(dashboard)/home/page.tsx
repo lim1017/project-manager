@@ -31,6 +31,8 @@ export default async function Page() {
   //saving projects to store in server side component
   store.dispatch(setProjects(projects));
 
+  const storedProjects = store.getState().project.projects;
+
   return (
     <div className="h-full overflow-y-auto pr-6 w-full">
       <div className=" h-full  items-stretch justify-center min-h-[content]">
@@ -41,7 +43,7 @@ export default async function Page() {
         </div>
         <div className="flex flex-2 grow items-center flex-wrap mt-3 -m-3 ">
           <Providers>
-            <Projects projects={projects} />
+            <Projects projects={storedProjects} />
           </Providers>
           <div className="w-1/3 p-3">
             <NewProject />
