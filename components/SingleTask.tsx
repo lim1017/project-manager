@@ -2,8 +2,11 @@
 import { useState } from "react";
 import Input from "./Input";
 import { updateTask } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export default function SingleTask({ task, projectName }) {
+  const router = useRouter();
+
   const [checked, setChecked] = useState(
     task.status === "NOT_STARTED" ? false : true
   );
@@ -15,6 +18,8 @@ export default function SingleTask({ task, projectName }) {
       taskId: task.id,
       status: !checked ? "COMPLETED" : "NOT_STARTED",
     });
+
+    router.refresh();
   };
 
   return (

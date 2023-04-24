@@ -19,7 +19,7 @@ const signinContent = {
   linkUrl: "/register",
   linkText: "Don't have an account?",
   header: "Welcome Back",
-  subheader: "Enter your credentials to access your account",
+  subheader: "pre-seeded: user@email.com//password",
   buttonText: "Sign In",
 };
 
@@ -59,7 +59,7 @@ export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
       <div className="w-full">
         <div className="text-center">
           <h2 className="text-3xl mb-2">{content.header}</h2>
-          <p className="tex-lg text-black/25">{content.subheader}</p>
+          <p className="text-lg text-red">{content.subheader}</p>
         </div>
         <form onSubmit={handleSubmit} className="py-10 w-full">
           {mode === "register" && (

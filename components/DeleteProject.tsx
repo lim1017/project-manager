@@ -38,7 +38,9 @@ export const DeleteProject = ({ projectId }) => {
           </div>
         ) : (
           <>
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button intent="secondary" onClick={closeModal}>
+              Cancel
+            </Button>
             <Button className="ml-2" onClick={handleDelete}>
               Yes
             </Button>

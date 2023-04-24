@@ -33,7 +33,12 @@ export default function SettingsComponent() {
           { value: SortBy.DESCENDING, label: "Decending" },
         ]}
       />
-      <Button size="small" className="mt-3" onClick={handleLogout}>
+      <Button
+        intent="secondary"
+        size="small"
+        className="mt-3"
+        onClick={handleLogout}
+      >
         Logout
       </Button>
     </div>
