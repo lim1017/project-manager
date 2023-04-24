@@ -38,10 +38,13 @@ export const About = () => {
           TailwindCSS,{" "}
         </p>
 
+        <p className="font-bold">New concepts:</p>
         <ul>
           <li>Server components</li>
           <li>Error boundaries/Suspense</li>
-          <li>async/await React components for data fetching</li>
+          <li>async/await components for data fetching</li>
+          <li>Prisma</li>
+          <li>middleware</li>
         </ul>
       </Modal>
     </>
