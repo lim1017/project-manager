@@ -21,9 +21,6 @@ const Greetings = async () => {
             Hello, {user?.firstName}!
           </h1>
           <h4 className="text-xl text-gray-400">Check your projects & tasks</h4>
-          {/* <Button className="mt-4" size="large">
-            Today's Schedule
-          </Button> */}
         </div>
         <Providers>
           <SettingsComponent />

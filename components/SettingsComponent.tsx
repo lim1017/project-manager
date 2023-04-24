@@ -12,8 +12,6 @@ export default function SettingsComponent() {
 
   const settingsData = useAppSelector((state) => state.settings);
 
-  console.log(settingsData);
-
   const handleSortChange = (e) => {
     store.dispatch(setSortBy(e.target.value));
   };

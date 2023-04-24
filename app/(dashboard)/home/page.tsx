@@ -7,7 +7,7 @@ import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Providers from "@/lib/providers/Provider";
 import { store } from "@/store";
-import { setProjects, setText } from "@/store/projectSlice";
+import { setProjects } from "@/store/projectSlice";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
@@ -22,15 +22,17 @@ const getProjects = async () => {
       tasks: true,
     },
   });
-  return { projects };
+
+  return projects.filter((project) => {
+    return project.deleted === false;
+  });
 };
 
 export default async function Page() {
-  const { projects } = await getProjects();
+  const projects = await getProjects();
 
   //saving projects to store in server side component
-  // store.dispatch(setProjects(projects));
-  store.dispatch(setText("testsafsdf"));
+  store.dispatch(setProjects(projects));
 
   return (
     <div className="h-full overflow-y-auto pr-6 w-full">

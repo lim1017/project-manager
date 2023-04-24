@@ -59,6 +59,16 @@ export const createNewProject = async (name) => {
   return data;
 };
 
+export const deleteProject = async (id) => {
+  const data = fetcher({
+    url: `/api/project/`,
+    method: "PATCH",
+    body: { projectId: id },
+  });
+
+  return data;
+};
+
 export const createNewTask = async (task) => {
   const data = fetcher({
     url: "/api/task",

@@ -2,6 +2,7 @@ import { FC } from "react";
 import Card from "./Card";
 import clsx from "clsx";
 import { ProjectWithTasks } from "@/lib/types";
+import { DeleteProject } from "./DeleteProject";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-us", {
@@ -41,7 +42,8 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <div className="text-right">
+        <div className="flex justify-between items-center">
+          <DeleteProject projectId={project.id} />
           <span className="text-sm text-gray-600 font-semibold">
             {isNaN(progress) ? 0 : progress}%
           </span>
