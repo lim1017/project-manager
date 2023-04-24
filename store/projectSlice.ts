@@ -1,12 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ProjectType } from "../types/types";
 
-// interface ProjectState {
-//   projects: ProjectType[];
-// }
-
 const initialState = {
   projects: [],
+  string: "",
 };
 
 const projectSlice = createSlice({
@@ -14,8 +11,10 @@ const projectSlice = createSlice({
   initialState,
   reducers: {
     setProjects: (state, action: PayloadAction<ProjectType[]>) => {
-      console.log(action.payload, "actionnnnnnnnnnn payyyyyyloaddddd");
       state.projects = [...action.payload];
+    },
+    setText: (state, action: PayloadAction<string>) => {
+      state.string = action.payload;
     },
     addProject: (state, action) => {
       state.projects.push(action.payload);
@@ -26,5 +25,6 @@ const projectSlice = createSlice({
   },
 });
 
-export const { addProject, getProjects, setProjects } = projectSlice.actions;
+export const { addProject, getProjects, setProjects, setText } =
+  projectSlice.actions;
 export default projectSlice.reducer;

@@ -6,11 +6,17 @@ import { SortBy } from "@/store/settingsSlice";
 import { sortByDateDescending, sortByDateAscending } from "@/lib/helpers";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { store } from "@/store";
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default function Projects({ projects }) {
   const settingsData = useAppSelector((state) => state.settings);
+
+  const data = useAppSelector((state) => state);
+  console.log(data);
+
+  console.log(store.getState());
 
   const newSortedProjects =
     settingsData?.sortBy === SortBy.ASCENDING
@@ -18,7 +24,6 @@ export default function Projects({ projects }) {
       : sortByDateDescending(projects);
 
   const [sortedProjects, setSortedProjects] = useState(newSortedProjects);
-  console.log(projects);
 
   useEffect(() => {
     const reSortedProjects =
