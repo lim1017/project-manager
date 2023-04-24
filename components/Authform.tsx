@@ -18,7 +18,7 @@ const registerContent = {
 const signinContent = {
   linkUrl: "/register",
   linkText: "Don't have an account?",
-  header: "Welcome Back",
+  header: "Welcome To Simple CRUD App",
   subheader: "pre-seeded: user@email.com//password",
   buttonText: "Sign In",
 };
