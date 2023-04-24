@@ -10,6 +10,7 @@ import TextArea from "./TextArea";
 import { createNewTask } from "@/lib/api";
 import Select from "./Select";
 import { ProjectType } from "@/types/types";
+import { Spinner } from "./Spinner";
 
 //TODO clientside reduxStore not working atm, so we're passing projects as props from store from serverComponent
 export default function NewTask({
@@ -22,7 +23,7 @@ export default function NewTask({
   title?: string;
 }) {
   const router = useRouter();
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal, isLoading, setisLoading } = useModal();
 
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
@@ -33,14 +34,20 @@ export default function NewTask({
   const handleCreateTask = async (e) => {
     e.preventDefault();
 
-    await createNewTask({
-      name: task,
-      description,
-      projectId: selectedProject,
-    });
+    setisLoading(true);
+    try {
+      await createNewTask({
+        name: task,
+        description,
+        projectId: selectedProject,
+      });
+      router.refresh();
+      closeModal();
+    } catch (err) {
+      console.log(err);
+    }
 
-    router.refresh();
-    closeModal();
+    setisLoading(false);
   };
 
   const projectOptions = projects.map((project) => {
@@ -63,33 +70,39 @@ export default function NewTask({
         className="w-3/4 bg-white rounded-xl p-8"
       >
         <h1 className="text-3xl mb-6">New Task</h1>
-        <form onSubmit={handleCreateTask}>
-          {title ? (
-            <h4 className="mb-4">Project: {title}</h4>
-          ) : (
-            <Select
-              name="Projects"
-              value={selectedProject}
-              options={projectOptions}
-              onChange={(e) => {
-                setSelectedProject(e.target.value);
-              }}
-              className="mb-4"
+        {isLoading ? (
+          <div className="w-full flex justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <form onSubmit={handleCreateTask}>
+            {title ? (
+              <h4 className="mb-4">Project: {title}</h4>
+            ) : (
+              <Select
+                name="Projects"
+                value={selectedProject}
+                options={projectOptions}
+                onChange={(e) => {
+                  setSelectedProject(e.target.value);
+                }}
+                className="mb-4"
+              />
+            )}
+            <Input
+              placeholder="Task name"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
             />
-          )}
-          <Input
-            placeholder="Task name"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-          />
-          <TextArea
-            className="mt-4 mb-4"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Button type="submit">Create</Button>
-        </form>
+            <TextArea
+              className="mt-4 mb-4"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <Button type="submit">Create</Button>
+          </form>
+        )}
       </Modal>
     </div>
   );

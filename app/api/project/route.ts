@@ -44,8 +44,7 @@ export const POST = async (req: Request) => {
       status: 200,
     });
   } catch (err) {
-    console.log(err);
-    return new Response(JSON.stringify("Failed Project"), {
+    return new Response(JSON.stringify(err), {
       status: 401,
     });
   }

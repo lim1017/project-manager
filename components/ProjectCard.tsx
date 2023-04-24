@@ -3,6 +3,7 @@ import Card from "./Card";
 import clsx from "clsx";
 import { ProjectWithTasks } from "@/lib/types";
 import { DeleteProject } from "./DeleteProject";
+import Link from "next/link";
 
 const formatDate = (date) =>
   new Date(date).toLocaleDateString("en-us", {
@@ -19,15 +20,19 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
   const progress = Math.ceil((completedCount / project.tasks.length) * 100);
 
   return (
-    <Card className="!px-6 !py-8 hover:scale-105 transition-all ease-in-out duration-200">
-      <div>
-        <span className="text-sm text-gray-300">
-          {formatDate(project.createdAt)}
-        </span>
-      </div>
-      <div className="mb-6">
-        <span className="text-3xl text-gray-600">{project.name}</span>
-      </div>
+    <Card className="!px-6 !py-8">
+      <Link href={`/project/${project.id}`}>
+        <div className="hover:scale-105 transition-all ease-in-out duration-200">
+          <div>
+            <span className="text-sm text-gray-300">
+              {formatDate(project.createdAt)}
+            </span>
+          </div>
+          <div className="mb-6">
+            <span className="text-3xl text-gray-600">{project.name}</span>
+          </div>
+        </div>
+      </Link>
       <div className="mb-2">
         <span className="text-gray-400">
           {completedCount}/{project.tasks.length} completed

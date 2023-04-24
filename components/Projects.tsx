@@ -1,7 +1,6 @@
 "use client";
 
 import ProjectCard from "./ProjectCard";
-import Link from "next/link";
 import { SortBy } from "@/store/settingsSlice";
 import { sortByDateDescending, sortByDateAscending } from "@/lib/helpers";
 import { useEffect, useState } from "react";
@@ -31,9 +30,7 @@ export default function Projects({ projects }) {
       {sortedProjects.map((project, i) => {
         return (
           <div className="w1/3 p-3" key={i}>
-            <Link href={`/project/${project.id}`}>
-              <ProjectCard project={project} />
-            </Link>
+            <ProjectCard project={project} />
           </div>
         );
       })}
