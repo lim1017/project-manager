@@ -18,7 +18,7 @@ export default function SettingsComponent() {
 
   const handleLogout = () => {
     signOut().then(() => {
-      router.replace("/");
+      router.replace("/signin");
     });
   };
 
