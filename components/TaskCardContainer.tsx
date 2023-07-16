@@ -4,7 +4,6 @@ import { Prisma, TASK_STATUS } from "@prisma/client";
 import { cookies } from "next/headers";
 import Card from "./Card";
 
-import NewTask from "./NewTask";
 import SingleTask from "./SingleTask";
 import { getProjectFromID } from "@/lib/helpers";
 import { getProjects } from "@/app/(dashboard)/home/page";
@@ -40,13 +39,19 @@ const TaskCardContainer = async () => {
   return (
     <>
       <Card>
-        <div
+        {/* <div
           className="flex justify-end items-center"
           style={{ minWidth: "50vw" }}
         >
           <div>
             <NewTask projects={JSON.parse(JSON.stringify(projects))} />
           </div>
+        </div> */}
+        <div
+          className="flex justify-start items-center"
+          style={{ minWidth: "50vw" }}
+        >
+          <span className="text-3xl text-gray-600">Recent Tasks</span>
         </div>
         <div>
           {tasks && tasks.length ? (
@@ -60,7 +65,7 @@ const TaskCardContainer = async () => {
               ))}
             </div>
           ) : (
-            <div>No Tasks</div>
+            <div className="mt-3">No Tasks</div>
           )}
         </div>
       </Card>
