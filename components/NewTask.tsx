@@ -28,7 +28,7 @@ export default function NewTask({
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [selectedProject, setSelectedProject] = useState(
-    projectId ? projectId : ""
+    projectId ? projectId : projects[0].id
   );
 
   const handleCreateTask = async (e) => {

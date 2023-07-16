@@ -18,6 +18,8 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
     (t) => t.status === "COMPLETED"
   ).length;
   const progress = Math.ceil((completedCount / project.tasks.length) * 100);
+  // const completedCount = 0;
+  // const progress = 0;
 
   return (
     <Card className="!px-6 !py-8">
@@ -36,6 +38,7 @@ const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
       <div className="mb-2">
         <span className="text-gray-400">
           {completedCount}/{project.tasks.length} completed
+          {/* 0/0 completed */}
         </span>
       </div>
       <div>

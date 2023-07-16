@@ -10,7 +10,7 @@ export const GET = async (request: Request, response) => {
 
 export const POST = async (req: Request) => {
   const res = await req.json();
-
+  console.log(res, "in register");
   try {
     const user = await db.user.create({
       data: {

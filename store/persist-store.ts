@@ -1,3 +1,4 @@
+// "use client";
 export const STORAGE_KEY = "redux_state";
 
 export const saveState = (store) => {

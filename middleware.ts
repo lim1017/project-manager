@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 const PUBLIC_FILE = /\.(.*)$/;
 
 // had to make this again here as the other one is in a file with bcrypt which is not supported on edge runtimes
-const verifyJWT = async (jwt) => {
+const verifyJWT = async (jwt: string | Uint8Array) => {
   const { payload } = await jwtVerify(
     jwt,
     new TextEncoder().encode(process.env.JWT_SECRET)
@@ -12,8 +12,17 @@ const verifyJWT = async (jwt) => {
   return payload;
 };
 
-export default async function middleware(req, res) {
+export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // if (
+  //   (jwt && pathname.startsWith("/signin")) ||
+  //   pathname.startsWith("/register")
+  // ) {
+  //   req.nextUrl.pathname = "/home";
+  //   return NextResponse.redirect(req.nextUrl);
+  // }
+
   //allows these paths to be accessed without a jwt
   if (
     pathname.startsWith("/_next") ||
@@ -25,10 +34,14 @@ export default async function middleware(req, res) {
   ) {
     return NextResponse.next();
   }
-
+  //@ts-expect-error ts error
   const jwt = req.cookies.get(process.env.COOKIE_NAME);
+
   if (!jwt) {
     req.nextUrl.pathname = "/signin";
+    return NextResponse.redirect(req.nextUrl);
+  } else if (pathname.endsWith("/")) {
+    req.nextUrl.pathname = "/home";
     return NextResponse.redirect(req.nextUrl);
   }
 

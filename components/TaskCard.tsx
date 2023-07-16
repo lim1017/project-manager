@@ -1,36 +1,9 @@
-import { getUserFromCookie } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { Prisma, TASK_STATUS } from "@prisma/client";
-import { cookies } from "next/headers";
 import Card from "./Card";
-
 import NewTask from "./NewTask";
-import { store } from "@/store";
 import SingleTask from "./SingleTask";
 import { getProjectFromID } from "@/lib/helpers";
-
-const tasks = Prisma.validator<Prisma.TaskArgs>()({});
-
-type Tasks = Prisma.TaskGetPayload<typeof tasks>;
-
-const getData = async () => {
-  const user = await getUserFromCookie(cookies());
-  const tasks = await db.task.findMany({
-    where: {
-      ownerId: user.id,
-      NOT: {
-        status: TASK_STATUS.COMPLETED,
-        deleted: false,
-      },
-    },
-    take: 5,
-    orderBy: {
-      due: "asc",
-    },
-  });
-
-  return tasks;
-};
+import { getProjects } from "@/app/(dashboard)/home/page";
+import { Tasks, getTasks } from "./TaskCardContainer";
 
 //card will be reused in scenarios where tasks get passed in
 const TaskCard = async ({
@@ -42,9 +15,10 @@ const TaskCard = async ({
   tasks: Tasks;
   projectId?: string;
 }) => {
-  const data = tasks || (await getData());
+  const data = tasks || (await getTasks());
 
-  const projects = store.getState().project.projects;
+  // const projects = store.getState().project.projects;
+  const projects = await getProjects();
 
   return (
     <>
@@ -57,11 +31,16 @@ const TaskCard = async ({
             <span className="text-3xl text-gray-600">{title}</span>
           </div>
           <div>
-            <NewTask projects={projects} projectId={projectId} title={title} />
+            <NewTask
+              projects={projects}
+              projectId={projectId}
+              title={title}
+              data-superjson
+            />
           </div>
         </div>
         <div>
-          {data && data.length ? (
+          {/* {data && data.length ? (
             <div>
               {data.map((task: Tasks, i) => (
                 <SingleTask
@@ -73,7 +52,7 @@ const TaskCard = async ({
             </div>
           ) : (
             <div>no tasks</div>
-          )}
+          )} */}
         </div>
       </Card>
     </>
