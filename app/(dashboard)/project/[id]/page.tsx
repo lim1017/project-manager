@@ -1,4 +1,4 @@
-import TaskCard from "@/components/TaskCard";
+import ProjectCardDetails from "@/components/ProjectCardDetails";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
@@ -20,8 +20,8 @@ export default async function ProjectPage({ params }) {
 
   return (
     <div className="h-full overflow-y-auto pr-6 w-1/1">
-      <TaskCard
-        tasks={project.tasks}
+      <ProjectCardDetails
+        tasks={JSON.parse(JSON.stringify(project.tasks))}
         title={project.name}
         projectId={project?.id}
       />

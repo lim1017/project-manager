@@ -6,32 +6,41 @@ import TaskCardContainer from "@/components/TaskCardContainer";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Providers from "@/lib/providers/Provider";
+import { Prisma } from "@prisma/client";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 export const getProjects = async () => {
   const user = await getUserFromCookie(cookies());
-
   const projects = await db.project.findMany({
     where: {
       ownerId: user?.id,
+      deleted: false,
     },
     include: {
       tasks: true,
     },
   });
 
-  return projects.filter((project) => {
-    return project.deleted === false;
-  });
+  // const queryString = `Select p.*, t.*
+  // From "Project" AS p
+  // LEFT JOIN(
+  //   SELECT * FROM "Task"
+  // )  AS t ON p.id = t."projectId"
+  // Where p."ownerId" = '${user?.id}' and p."deleted" = false;`;
+
+  // console.log(queryString);
+
+  // const projects = await db.$queryRawUnsafe(queryString);
+
+  return projects;
 };
 
 export default async function Page() {
   const projects = await getProjects();
-
-  //saving projects to store in server side component
-  // store.dispatch(setProjects(projects));
-
   return (
     <div className="h-full overflow-y-auto pr-6 w-full">
       <div className=" h-full  items-stretch justify-center min-h-[content]">
@@ -45,7 +54,6 @@ export default async function Page() {
             <Projects
               //work around for can not pass date objs to client
               projects={JSON.parse(JSON.stringify(projects))}
-              data-superjson
             />
           </Providers>
           <div className="w-1/3 p-3">

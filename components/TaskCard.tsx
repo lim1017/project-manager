@@ -40,7 +40,7 @@ const TaskCard = async ({
           </div>
         </div>
         <div>
-          {data && data.length ? (
+          {/* {data && data.length ? (
             <div>
               {data.map((task: Tasks, i) => (
                 <SingleTask
@@ -52,7 +52,7 @@ const TaskCard = async ({
             </div>
           ) : (
             <div>no tasks</div>
-          )}
+          )} */}
         </div>
       </Card>
     </>

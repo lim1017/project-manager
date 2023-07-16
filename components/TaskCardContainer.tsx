@@ -23,7 +23,6 @@ export const getTasks = async () => {
         deleted: false,
       },
     },
-    take: 5,
     orderBy: {
       due: "asc",
     },

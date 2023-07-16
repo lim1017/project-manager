@@ -25,12 +25,13 @@ export default function Projects({ projects }) {
         : sortByDateDescending(projects);
     setSortedProjects(reSortedProjects);
   }, [projects.length]);
+  console.log(projects);
   return (
     <>
       {sortedProjects.map((project, i) => {
         return (
           <div className="w1/3 p-3" key={i}>
-            <ProjectCard project={project} />
+            <ProjectCard project={JSON.parse(JSON.stringify(project))} />
           </div>
         );
       })}
